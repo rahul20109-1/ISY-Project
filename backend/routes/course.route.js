@@ -1,9 +1,12 @@
 import express from 'express'
-import { addCourse } from '../controllers/course.controller.js';
+import { addCourse, deleteCourse, getAllCourses, updateCourse } from '../controllers/course.controller.js';
 
 const courseRouter = express.Router();
 
-//ynha se course add honge
+
 courseRouter.post('/add-course', addCourse);
+courseRouter.get('/get-courses',getAllCourses);
+courseRouter.delete('/delete-course/:id',deleteCourse);
+courseRouter.patch('/update-course/:id', updateCourse);
 
 export default courseRouter;

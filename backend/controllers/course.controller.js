@@ -28,3 +28,45 @@ export const addCourse = async(req, res) => {
         return res.status(500).json({error:error.message});
     }
 }
+
+export const getAllCourses = async(req, res) => {
+    try {
+        const courses = await Courses.find();
+        if(!courses){
+            return res.status(404).json({message:'You have no courses yet'});
+        }
+        console.log(courses)
+        return res.status(200).json(courses)
+
+    } catch (error) {
+        return res.status(500).json({error:error.message});
+    }
+}
+
+export const deleteCourse = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const course = await Courses.findByIdAndDelete(id);
+        if(!course){
+            return res.status(404).json({message:'No courses found'});
+        }
+
+        return res.status(200).json({message:'Course deleted successfully'});
+    } catch (error) {
+        return res.status(500).json({error:error.message});
+    }
+}
+
+export const updateCourse = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const course = await Courses.findByIdAndUpdate(id,req.body,{new:true});
+        if(!course){
+            return res.status(404).json({message:'No courses found'});
+        }
+
+        return res.status(200).json(course);
+    } catch (error) {
+        return res.status(500).json({error:error.message});
+    }
+}

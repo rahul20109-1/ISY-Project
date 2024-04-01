@@ -35,7 +35,7 @@ export const getAllCourses = async(req, res) => {
         if(!courses){
             return res.status(404).json({message:'You have no courses yet'});
         }
-        console.log(courses)
+
         return res.status(200).json(courses)
 
     } catch (error) {

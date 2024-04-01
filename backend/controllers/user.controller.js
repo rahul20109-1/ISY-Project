@@ -44,13 +44,12 @@ export const userLogin = async(req, res) => {
             return res.status(401).json({message:'Incorrect password'});
         }
 
-        
         const isAlreadyLoggedIn = req.cookies.admin_token;
         if(isAlreadyLoggedIn) {
             return res.status(400).json({message:'User already logged in'})
         }
 
-        const token = jwt.sign({id:isMatched._id, isAdmin:isMatched.isAdmin},process.env.JWT_TOKEN_KEY,{expiresIn:'1h'});
+        const token = jwt.sign({_id:existingUser._id, isAdmin:existingUser.isAdmin},process.env.JWT_TOKEN_KEY,{expiresIn:'1h'});
         res.cookie('admin_token',token)
         return res.status(200).json({message:'Logged in successfully'});
         

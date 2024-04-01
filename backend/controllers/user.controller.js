@@ -1,5 +1,7 @@
 import User from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
+import jwt from  'jsonwebtoken';
+
 export const userRegister = async(req, res) => {
     try {
         const {username, email, password} = req.body;
@@ -41,9 +43,31 @@ export const userLogin = async(req, res) => {
         if(!isMatched){
             return res.status(401).json({message:'Incorrect password'});
         }
+
         
+        const isAlreadyLoggedIn = req.cookies.admin_token;
+        if(isAlreadyLoggedIn) {
+            return res.status(400).json({message:'User already logged in'})
+        }
+
+        const token = jwt.sign({id:isMatched._id, isAdmin:isMatched.isAdmin},process.env.JWT_TOKEN_KEY,{expiresIn:'1h'});
+        res.cookie('admin_token',token)
         return res.status(200).json({message:'Logged in successfully'});
         
+    } catch (error) {
+        return res.status(500).json({error:error.message});
+    }
+}
+
+export const userLogout = async(req, res) => {
+    try {
+        const token = req.cookies.admin_token;
+        if(!token){
+            return res.status(403).json({message: 'First you have to log in'});
+        }
+
+        res.clearCookie('admin_token');
+        return res.status(200).json({message: 'Logout successfull'});
     } catch (error) {
         return res.status(500).json({error:error.message});
     }

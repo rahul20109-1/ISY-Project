@@ -21,6 +21,14 @@ const courseSchema = new mongoose.Schema({
     credit:{
         type:Number,
         required:true
+    },
+    level:{
+        type:Array,
+        required:true
+    },
+    antipreq:{
+        type:Array,
+        required:true
     }
 },{timestamps:true});
 

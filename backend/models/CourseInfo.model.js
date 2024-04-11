@@ -26,11 +26,11 @@ const courseSchema = new mongoose.Schema({
         type:Array,
         required:true
     },
-    antipreq:{
+    prereq:{
         type:Array,
         required:true
     },
-    prereq:{
+    antireq:{
         type:Array,
         required:true
     }

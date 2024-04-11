@@ -2,8 +2,8 @@ import Courses from "../models/CourseInfo.model.js";
 
 export const addCourse = async(req, res) => {
     try {
-        const {name, acronym, code, branch, credit, level,antipreq, prereq} = req.body;
-        if(!name || !acronym || !code || !branch || !credit||!level||!antipreq||!prereq){
+        const {name, acronym, code, branch, credit, level,antireq, prereq} = req.body;
+        if(!name || !acronym || !code || !branch || !credit||!level||!antireq||!prereq){
             return res.status(400).json({message:'All fields are mandatory'});
         }
 
@@ -20,8 +20,8 @@ export const addCourse = async(req, res) => {
             branch,
             credit,
             level,
-            antipreq,
-            prereq
+            prereq,
+            antireq
         });
 
         await newCourse.save();

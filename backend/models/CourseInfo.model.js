@@ -29,6 +29,10 @@ const courseSchema = new mongoose.Schema({
     antipreq:{
         type:Array,
         required:true
+    },
+    prereq:{
+        type:Array,
+        required:true
     }
 },{timestamps:true});
 
